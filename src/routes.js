@@ -10,8 +10,8 @@ import Found from './Components/Found/Found'
 
 export default (
     <Switch>
-        <Route path= '/' exact component= {Home} />
-        <Route path= '/land' component= {Landing} />
+        <Route path= '/' exact component= {Landing} />
+        <Route path= '/home' component= {Home} />
         <Route path= '/price' component= {Price} />
         <Route path= '/delete' component= {Delete} />
         <Route path= '/add' component= {Add} />

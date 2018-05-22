@@ -6,8 +6,7 @@ class Landing extends Component{
     render(){
         return(
             <div className= 'all'>
-                <Particles 
-                params={
+                <Particles params={
                     {
                         "particles": {
                           "number": {
@@ -96,8 +95,10 @@ class Landing extends Component{
             <div className='centerBox' >
                 <h3 className= 'welcome'>Welcome to</h3>
                 <h1 className='title' >My Price Flights</h1>
-                <p className='about' >The site that allows you to visit your dream destinations at your dream prices</p>
-                <button>Login / Register</button>
+                <p className='about' >The web app that allows you to visit your dream destinations at your dream prices</p>
+                <a href={process.env.REACT_APP_LOGIN}>
+                  <button>Login / Register</button>
+                </a>
             </div>
         </div>
     )

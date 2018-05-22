@@ -4,7 +4,7 @@ import './Nav.css'
 
 function Nav(props){
     return(
-        <div className={props.location.pathname==='/land' ? 'hidenav' :'navbar'}>
+        <div className={props.location.pathname==='/' ? 'hidenav' :'navbar'}>
             <h1>My Price Flights</h1>
             <div className= 'right'>
                 <h3>***username***</h3>
