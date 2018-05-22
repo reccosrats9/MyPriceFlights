@@ -1,0 +1,36 @@
+.navbar{
+    background: #00A7E1;
+    height: 80px;
+    width: 100vw;
+    display: flex;    
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.hidenav{
+    display: none;
+}
+
+
+h1{
+    padding: 15px;
+    font-family: 'Sriracha', cursive;
+    color: #FDFFFC;
+    /* text-shadow: #36D152 2px 2px; */
+    font-size: 3em;
+}
+
+.right{
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: #FDFFFC;
+
+}
+
+img{
+    padding: 15px;
+    max-height: 50px;
+    border-radius: 35px;
+}

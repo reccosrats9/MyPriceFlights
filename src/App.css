@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster|Montserrat|Sriracha');
+
+.App{
+    font-family: 'Montserrat', sans-serif;
+}
+
+button{
+    background: #ED254E;
+    border-radius: 25px;
+    width: auto;
+    color: #FDFFFC;
+    padding: 17px;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+}
