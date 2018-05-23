@@ -1,26 +1,21 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {withRouter} from 'react-router-dom';
 import './Nav.css'
 import {connect} from 'react-redux'
 
-class Nav extends Component {
-
-    componentDidMount(){
-
-    }
-
-    render (){      
+function Nav (props){    
         return(
-            <div className={this.props.location.pathname==='/' ? 'hidenav' :'navbar'}>
+            <div className={props.location.pathname==='/' ? 'hidenav' :'navbar'}>
         <h1>My Price Flights</h1>
         <div className= 'right'>
-        <h3>{this.props.user}</h3>
-        <img src={this.props.picture} alt=""/>
-        <button className='logout'>Logout</button>
+        <h3>{props.user}</h3>
+        <img src={props.picture} alt=""/>
+        <a href={process.env.REACT_APP_LOGOUT}>
+            <button className='logout'>Logout</button>
+        </a>
         </div>
         </div>
     )
-}
 }
 
 function mapStateToProps(state){

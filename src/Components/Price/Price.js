@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 
-export default class Price extends Component {
+class Price extends Component {
     constructor(){
         super()
         this.state={
 
         }
     }
+    componentDidMount(){
+        console.log(this.props)
+        if(!this.props.id){
+        this.props.history.push('/')}
+    }
+
 
 
     render(){
@@ -17,3 +24,9 @@ export default class Price extends Component {
         )
     }
 }
+
+function mapStateToProps(state){
+    return state
+}
+
+export default connect(mapStateToProps)(Price)

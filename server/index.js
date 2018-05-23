@@ -5,7 +5,8 @@ const express= require('express'),
         session= require('express-session')
         controller= require('./controller'),
         passport= require('passport'),
-        Auth0Strategy= require('passport-auth0')
+        Auth0Strategy= require('passport-auth0'),
+        axios = require('axios')
 
 
 const app= express()
@@ -26,7 +27,12 @@ massive(CONNECTION_STRING).then(db=>app.set('db', db)).catch(err=>(console.log('
 app.use(session({
         secret: SESSION_SECRET,
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: true,
+        //cookie for stripe? suggested by Auth0 video
+        // cookie: {
+        //         secure:true,
+        //        httpOnly: true
+        //       }
 }))
 
 app.use(passport.initialize())
@@ -71,8 +77,13 @@ app.get('/auth/me', (req,res)=>{
         if(req.user){res.status(200).send(req.user)}
         else {res.status(401).send('Please sign in to view this page')}
 })
+app.get('/logout', (req,res)=>{
+        console.log(req.session)
+        req.logOut()
+        res.redirect(`https://reccosrats9.auth0.com/v2/logout?returnTo=${encodeURIComponent('http://localhost:3000/#/')}`);
+})
 
-//Other endpoints
+//Endpoints to update database
 app.put('/contact/:id', (req,res)=>{
         const {id}= req.params
         const {email, phone} =req.body

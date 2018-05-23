@@ -120,19 +120,19 @@ class Register extends Component{
                         "retina_detect": true
                       }
                 }/> */}
-            <div className= 'box'> 
+            <div className= 'RegisterBox'> 
                 <div className= 'RegisterText'>
-                    <p id='thanks'>Thanks for registering!</p>
+                    <p className='thanks'>Thanks for registering!</p>
                     <p> To get you the flight deals of your dreams, we need some contact information so we can let you know when we find deals that match.</p>
                     <p>Please give us yours to continue!</p>
                 </div>
                 <div className='RegisterInputs'>
                     <input type="email" 
-                    placeholder= 'email'
+                    placeholder= 'email' required
                     onChange={this.handleChangeEmail}
                     value={this.state.email}/>
                     <input type='tel' 
-                    placeholder='phone number' 
+                    placeholder='phone number' required
                     onChange={this.handleChangePhone}
                     value={this.state.phone} />
                 <button className= 'SubmitButton'

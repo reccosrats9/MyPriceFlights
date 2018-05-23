@@ -1,4 +1,4 @@
-.box{
+.RegisterBox{
     max-width: 70vw;
     height: 60vh;
     margin: auto;
@@ -44,7 +44,7 @@
     box-shadow: 1px 1px 1px #0B3C49;
 }
 
-#thanks{
+.thanks{
     color: #36D152;
     font-family: 'Lobster', cursive;
     font-size: 3em;
