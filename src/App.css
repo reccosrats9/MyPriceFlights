@@ -13,4 +13,5 @@ button{
     border: none;
     font-family: 'Montserrat', sans-serif;
     font-size: 1em;
+    box-shadow: 1px 1px 1px #0B3C49;
 }

@@ -21,7 +21,7 @@ const {
         CALLBACK_URL
 }=process.env
 
-massive(CONNECTION_STRING).then(db=>app.set('db', db))
+massive(CONNECTION_STRING).then(db=>app.set('db', db)).catch(err=>(console.log('massive', err)))
 
 app.use(session({
         secret: SESSION_SECRET,
@@ -39,17 +39,16 @@ passport.use(new Auth0Strategy({
         scope: 'openid profile'
 }, (accessToken, refreshToken, extraParams, profile, done)=>{
         let db= app.get('db')
-        console.log(db)
         let {displayName, id, picture}=profile
         db.find_user([id]).then(foundUser=>{
                 if(foundUser[0]){
                         done(null, foundUser[0].id)
                 } else {
                         db.create_user([displayName, picture, id]).then(user=>{
-                                done(null, user[0].username)
-                        })
+                                done(null, user[0].id)
+                        }).catch(err=>(console.log('createUser', err)))
                 }
-        })
+        }).catch(err=>(console.log('findUser', err)))
 
 }))
 
@@ -57,20 +56,31 @@ passport.serializeUser((id, done)=>{
         done(null, id)
 })
 passport.deserializeUser((id, done)=>{
-        app.get('db').find_session_user([id]).then(user=>{
+        let db=app.get('db')
+        db.find_session_user([id]).then(user=>{
                 done(null, user[0])
-        })
+        }).catch(err=>(console.log('deserialize', err)))
 })
 
+//Sessions and Auth0 endpoints
 app.get('/login', passport.authenticate('auth0'))
 app.get('/auth/callback', passport.authenticate('auth0', {
         successRedirect: 'http://localhost:3000/#/home'
 }))
-app.get('auth/me', (req,res)=>{
+app.get('/auth/me', (req,res)=>{
         if(req.user){res.status(200).send(req.user)}
         else {res.status(401).send('Please sign in to view this page')}
 })
 
+//Other endpoints
+app.put('/contact/:id', (req,res)=>{
+        const {id}= req.params
+        const {email, phone} =req.body
+        let db=app.get('db')
+        db.update_phone_email([id, email, phone])
+        .then(user=> res.sendStatus(200))
+        .catch(err=>console.log('update contacts put', err))
+})
 
 
 

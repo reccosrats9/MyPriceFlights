@@ -5,6 +5,8 @@
     display: flex;    
     justify-content: space-between; 
     align-items: center;
+    text-shadow: 1px 1px #0B3C49;
+    box-shadow: 1px 1px 1px #0B3C49;
 }
 
 .hidenav{
@@ -16,7 +18,6 @@ h1{
     padding: 15px;
     font-family: 'Sriracha', cursive;
     color: #FDFFFC;
-    /* text-shadow: #36D152 2px 2px; */
     font-size: 3em;
 }
 
@@ -33,4 +34,16 @@ img{
     padding: 15px;
     max-height: 50px;
     border-radius: 35px;
+}
+
+.logout{
+    font-size: 0.5em;
+    padding: 8px;
+    color: #00A7E1;
+    background: #FDFFFC
+}
+
+.logout:hover{
+    background: #ED254E;
+    color: #FDFFFC
 }

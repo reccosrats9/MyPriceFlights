@@ -1,17 +1,30 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import './Nav.css'
+import {connect} from 'react-redux'
 
-function Nav(props){
-    return(
-        <div className={props.location.pathname==='/' ? 'hidenav' :'navbar'}>
-            <h1>My Price Flights</h1>
-            <div className= 'right'>
-                <h3>***username***</h3>
-                <img src="https://i.pinimg.com/236x/fa/34/8c/fa348c8137d0c0d73a927945aa25e205--funny-bunnies-cute-bunny.jpg" alt="Profile Pic"/>
-            </div>
+class Nav extends Component {
+
+    componentDidMount(){
+
+    }
+
+    render (){      
+        return(
+            <div className={this.props.location.pathname==='/' ? 'hidenav' :'navbar'}>
+        <h1>My Price Flights</h1>
+        <div className= 'right'>
+        <h3>{this.props.user}</h3>
+        <img src={this.props.picture} alt=""/>
+        <button className='logout'>Logout</button>
+        </div>
         </div>
     )
 }
+}
 
-export default withRouter(Nav)
+function mapStateToProps(state){
+    return state
+}
+
+export default withRouter(connect(mapStateToProps)(Nav))

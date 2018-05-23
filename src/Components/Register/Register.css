@@ -1,0 +1,75 @@
+.box{
+    max-width: 70vw;
+    height: 60vh;
+    margin: auto;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border: solid 0.5px  #0B3C49;
+    border-radius: 25px;
+    padding: 15px;
+    background: #FDFFFC;
+    box-shadow: 3px 3px 3px #0B3C49;
+}
+
+.RegisterText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 30vh;
+    text-align: center;
+    color: #2C2D24;
+    line-height: 1.6;
+    color: #2C2D24;
+    text-shadow: 0.5px 0.5px #0B3C49;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.RegisterInputs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 20vh;
+}
+
+.SubmitButton{
+    padding: 10px;
+    font-size: .75em;
+    box-shadow: 0.5px 0.5px 0.5px #FDFFFC;
+    box-shadow: 1px 1px 1px #0B3C49;
+}
+
+#thanks{
+    color: #36D152;
+    font-family: 'Lobster', cursive;
+    font-size: 3em;
+    text-shadow: 1px 1px #0B3C49
+
+}
+
+input{
+    border-radius: 10px;
+    padding: 4px;
+    /* border: 0.75px solid; */
+    text-align: center;
+}
+
+.SubmitButton:hover{
+    background: #36D152;
+}
+
+.allRegister{
+    background-image: url('http://napidoktor.hu/content/uploads/2015/10/felh--s---g.jpg');
+    background-size: 150%;
+    position: fixed;
+    top: 80;
+    left: 0;
+    z-index: -1;
+    min-width: 100vw;
+    min-height: 100vh;
+  }

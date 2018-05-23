@@ -52,3 +52,7 @@ canvas{
     min-width: 100vw;
     min-height: 100vh;
   }
+  .login:hover{
+    color: #ED254E;
+    background: #FDFFFC
+}

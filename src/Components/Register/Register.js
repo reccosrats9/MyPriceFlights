@@ -1,16 +1,44 @@
 import React, {Component} from 'react';
-import './Landing.css'
-import Particles from 'react-particles-js';
+import './Register.css'
+import {addContact} from '../../ducks/reducer'
+import {connect} from 'react-redux'  
+import axios from 'axios'
 
-class Landing extends Component{
+class Register extends Component{
+    constructor(){
+        super()
+        this.state={
+            email: '',
+            phone: ''
+        }
+        this.handleChangeEmail=this.handleChangeEmail.bind(this)
+        this.handleChangePhone=this.handleChangePhone.bind(this)
+        this.submit=this.submit.bind(this)
+    }
+
+    handleChangeEmail(e){
+        this.setState({email: e.target.value})
+    }
+
+    handleChangePhone(e){
+        this.setState({phone: e.target.value})
+    }
+
+    submit(){
+        const {email, phone} = this.state
+        const {id}= this.props.state
+        this.props.addContact(email, phone)
+        axios.put(`/contact/${id}`, {email, phone})
+    }
+
     render(){
         return(
-            <div className= 'all'>
-                <Particles params={
+            <div className='allRegister'>
+                 {/* <Particles params={
                     {
                         "particles": {
                           "number": {
-                            "value": 5,
+                            "value": 50,
                             "density": {
                               "enable": true,
                               "value_area": 2164.606282168456
@@ -32,13 +60,13 @@ class Landing extends Component{
                             "random": true,
                           },
                           "size": {
-                            "value": 384.81889460772544,
+                            "value": 500,
                             "random": false,
                           },
                           "move": {
                             "enable": true,
-                            "speed": 1,
-                            "direction": "bottom",
+                            "speed": 5,
+                            "direction": ["bottom",  "right"],
                             "random": true,
                             "straight": false,
                             "out_mode": "out",
@@ -91,18 +119,35 @@ class Landing extends Component{
                         },
                         "retina_detect": true
                       }
-                }/>
-            <div className='centerBox' >
-                <h3 className= 'welcome'>Welcome to</h3>
-                <h1 className='title' >My Price Flights</h1>
-                <p className='about' >The web app that allows you to visit your dream destinations at your dream prices</p>
-                <a href={process.env.REACT_APP_LOGIN}>
-                  <button className='login'>Login / Register</button>
-                </a>
+                }/> */}
+            <div className= 'box'> 
+                <div className= 'RegisterText'>
+                    <p id='thanks'>Thanks for registering!</p>
+                    <p> To get you the flight deals of your dreams, we need some contact information so we can let you know when we find deals that match.</p>
+                    <p>Please give us yours to continue!</p>
+                </div>
+                <div className='RegisterInputs'>
+                    <input type="email" 
+                    placeholder= 'email'
+                    onChange={this.handleChangeEmail}
+                    value={this.state.email}/>
+                    <input type='tel' 
+                    placeholder='phone number' 
+                    onChange={this.handleChangePhone}
+                    value={this.state.phone} />
+                <button className= 'SubmitButton'
+                onClick={this.submit}>Submit</button>
+                </div>
             </div>
-        </div>
-    )
-}
+            </div>
+        )
+    }
 }
 
-export default Landing
+function mapStateToProps(state){
+    return {
+        state
+    }
+}
+
+export default connect(mapStateToProps, {addContact})(Register)
