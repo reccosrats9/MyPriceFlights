@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {userInfo} from '../../ducks/reducer'
-import Register from '../Register/Register'
+import {Link} from 'react-router-dom'
 import './Home.css' 
+import RoutesTable from '../RoutesTable/RoutesTable'
 // import {Redirect} from 'react-router-dom'
 // import Landing from '../Landing/Landing'
 
@@ -11,10 +12,10 @@ class Home extends Component {
     constructor(){
         super()
         this.state={
-            user: '',
-            picture: '',
+            routes: []
         }
         this.componentDidMount= this.componentDidMount.bind(this)
+        this.getRoutes=this.getRoutes.bind(this)
       }
     
     componentDidMount(){
@@ -23,24 +24,32 @@ class Home extends Component {
           console.log(res.data)
         const { id, displayname, picture, email, phone, prostatus} =res.data
         this.props.userInfo(id, displayname, picture, email, phone, prostatus)
-      }
-      ).catch(err=>{
+        !phone ? this.props.history.push('/register') : null
+        axios.get(`/routes/${id}`).then(res=>{
+            console.log(res.data)
+            this.setState({routes: res.data})//.catch(err=>console.log('get routes endpoint', err))
+      })
+      }).catch(err=>{
         this.props.history.push('/')
+        })
+    }
+
+    getRoutes(userid){
+        axios.get(`/routes/${userid}`).then(res=>{
+            console.log(res.data)
+            this.setState({routes: res.data})//.catch(err=>console.log('get routes endpoint', err))
       })
     }
 
     render(){
-        let arr=[{origin: 'slc', destination: 'cdg', price: 400},{origin: 'slc', destination: 'cdg', price: 400},{origin: 'slc', destination: 'cdg', price: 400},{origin: 'slc', destination: 'cdg', price: 400},{origin: 'slc', destination: 'cdg', price: 400},{origin: 'slc', destination: 'cdg', price: 400}]
         return(
             <div>
-                {this.props.id ?
-            <div>
-                {!this.props.phone ? 
-                     <Register /> :
                     <div className='HomeBox' > 
                         <div className= 'HeaderBox'>
                             <h1 className= 'thanks'>My Routes</h1>
-                            <button className='addButton'> + </button>
+                                <Link to='/add'>
+                                <button className='addButton'> + </button>
+                                </Link>
                         </div>
                         <div className='routesTable'>
                             <div className='tableHeader'>
@@ -50,28 +59,14 @@ class Home extends Component {
                                 <div className='columnSmall'></div>
                                 <div className='columnSmall'></div>
                             </div>
-                        {arr.map((route, i)=>{
+                        {this.state.routes.map(route=>{
+                            console.log(route.routeid)
                             return(
-                                <div className='tableRow' key={i}>
-                                    <div className='column'>{route.origin}</div>
-                                    <div className='column'>{route.destination}</div>
-                                    <div className='column'>{route.price}</div>
-                                    <div className='columnSmall'>
-                                        <button className='tableButton'>Change</button>
-                                    </div>
-                                    <div className='columnSmall'>
-                                        <button className='tableButton'>Delete</button>
-                                    </div>
-                                </div>
+                                <RoutesTable route={route} getRoutes={this.getRoutes} key={route.routeid}/>
                             )
                         })}
                         </div>
                      </div>
-                     }
-            </div> :
-            null
-            // <Landing />
-                    }
             </div>
         )
     }

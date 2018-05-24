@@ -1,0 +1,47 @@
+.AddRouteBox{
+    max-width: 70vw;
+    min-height: 60vh;
+    margin: auto;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: solid 0.5px  #0B3C49;
+    border-radius: 25px;
+    padding: 15px;
+    background: #FDFFFC;
+    box-shadow: 3px 3px 3px #0B3C49;
+}
+
+.inputContainers{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.addRouteInputs{
+    display: flex;
+    justify-content: space-between;
+    margin: 15px;
+    align-items: center;
+}
+
+/* .newRouteTitle{
+   float: top;
+   margin-top: -5%;
+} */
+
+.newRouteButton{
+    text-align: center;
+    padding: 10px;
+    /* float: bottom;
+    margin-top: 10%; */
+}
+
+.buttonBox{
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5%;
+}

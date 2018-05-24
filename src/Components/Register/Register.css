@@ -62,14 +62,3 @@ input{
 .SubmitButton:hover{
     background: #36D152;
 }
-
-.allRegister{
-    background-image: url('http://napidoktor.hu/content/uploads/2015/10/felh--s---g.jpg');
-    background-size: 150%;
-    position: fixed;
-    top: 80;
-    left: 0;
-    z-index: -1;
-    min-width: 100vw;
-    min-height: 100vh;
-  }

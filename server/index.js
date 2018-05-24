@@ -78,20 +78,15 @@ app.get('/auth/me', (req,res)=>{
         else {res.status(401).send('Please sign in to view this page')}
 })
 app.get('/logout', (req,res)=>{
-        console.log(req.session)
         req.logOut()
-        res.redirect(`https://reccosrats9.auth0.com/v2/logout?returnTo=${encodeURIComponent('http://localhost:3000/#/')}`);
+        res.redirect(`https://reccosrats9.auth0.com/v2/logout?returnTo=${encodeURIComponent('http://localhost:3000/#/')}&client_id=${CLIENT_ID}`);
 })
 
 //Endpoints to update database
-app.put('/contact/:id', (req,res)=>{
-        const {id}= req.params
-        const {email, phone} =req.body
-        let db=app.get('db')
-        db.update_phone_email([id, email, phone])
-        .then(user=> res.sendStatus(200))
-        .catch(err=>console.log('update contacts put', err))
-})
+app.put('/contact/:id', controller.addPhoneEmail)
+app.post('/route', controller.addNewRoute)
+app.get('/routes/:id', controller.getUserRoutes)
+app.put('/route/:routeid', controller.changeRoute)
 
 
 

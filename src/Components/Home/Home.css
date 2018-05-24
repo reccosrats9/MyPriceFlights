@@ -80,3 +80,7 @@
 .addButton:hover{
     background: #36D152
 }
+
+.changeInput{
+    width: 60%;
+}

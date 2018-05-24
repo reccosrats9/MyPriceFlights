@@ -13,19 +13,9 @@ const ADD_EMAIL_PHONE='ADD_EMAIL_PHONE'
 export default function reducer(state=initialState, action){
     switch(action.type){
         case USER_INFO:
-            return Object.assign({}, state, {
-                id: action.payload.id,
-                user: action.payload.user,
-                picture: action.payload.picture,
-                email: action.payload.email,
-                phone: action.payload.phone,
-                pro: action.payload.pro
-            })
+            return Object.assign({}, state, action.payload)
         case ADD_EMAIL_PHONE: 
-            return Object.assign({}, state, {
-                email: action.payload.email,
-                phone: action.payload.phone
-            })
+            return Object.assign({}, state, action.payload)
         default:
             return state
     }
