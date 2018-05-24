@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {userInfo} from '../../ducks/reducer'
 import Register from '../Register/Register'
 import './Home.css' 
-import {Redirect} from 'react-router-dom'
+// import {Redirect} from 'react-router-dom'
 // import Landing from '../Landing/Landing'
 
 class Home extends Component {
@@ -52,7 +52,7 @@ class Home extends Component {
                             </div>
                         {arr.map((route, i)=>{
                             return(
-                                <div className='tableRow' >
+                                <div className='tableRow' key={i}>
                                     <div className='column'>{route.origin}</div>
                                     <div className='column'>{route.destination}</div>
                                     <div className='column'>{route.price}</div>
