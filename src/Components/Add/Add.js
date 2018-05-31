@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import {Link} from 'react-router-dom'
 import './Add.css'
 
 class Add extends Component {
@@ -43,29 +44,35 @@ class Add extends Component {
     submitRoute(){
         const {origin, destination, price}=this.state
         const {id}= this.props
-        axios.post('/route', {id, origin, destination, price})
+        if (origin && destination && price) {axios.post('/route', {id, origin, destination, price})
         .then(this.props.history.push('/home'))
+        }else {alert('Please complete all inputs so we can build your route')}
     }
 
     render(){
         return(
             <div className='AddRouteBox' > 
+                    <Link to='/home'>
+                    <img className='cancelButton' src="https://cdn1.iconfinder.com/data/icons/basic-ui-icon-rounded-colored/512/icon-02-512.png" alt=""/>
+                    </Link>
                     <div>
                         <h1 className= 'thanks newRouteTitle'>Add New Route</h1>
                     </div>
                     <div className="inputContainers">
+                        <form action="">
                          <div className='addRouteInputs'>
-                            <h2>Origin Airport Code:</h2><input type="text" placeholder='ie: SLC' onChange={this.handleChangeOrigin}/>
+                            <h2>Origin Airport Code:</h2><input type="text" placeholder='ie: SLC' onChange={this.handleChangeOrigin} required/>
                         </div>
                         <div className='addRouteInputs'>
-                            <h2>Destination Airport Code:</h2><input type="text" placeholder='ie: EDI'onChange={this.handleChangeDestination}/>
+                            <h2>Destination Airport Code:</h2><input type="text" placeholder='ie: EDI'onChange={this.handleChangeDestination} required/>
                         </div>
                         <div className='addRouteInputs'>
-                            <h2>Desired Ticket Price: </h2><input type="text" placeholder='$$$'onChange={this.handleChangePrice}/>
+                            <h2>Desired Ticket Price: </h2><input type="text" placeholder='$$$'onChange={this.handleChangePrice} required/>
                         </div>
+                        </form>
                     </div>
                     <div className= 'buttonBox'>
-                        <button className='newRouteButton' onClick={this.submitRoute}>Submit</button>
+                        <button type='submit' className='newRouteButton' onClick={this.submitRoute}>Submit</button>
                     </div>
              </div>
         )

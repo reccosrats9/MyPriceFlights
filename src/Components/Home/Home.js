@@ -60,7 +60,6 @@ class Home extends Component {
                                 <div className='columnSmall'></div>
                             </div>
                         {this.state.routes.map(route=>{
-                            console.log(route.routeid)
                             return(
                                 <RoutesTable route={route} getRoutes={this.getRoutes} key={route.routeid}/>
                             )

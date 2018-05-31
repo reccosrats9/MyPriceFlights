@@ -6,7 +6,8 @@ const express= require('express'),
         controller= require('./controller'),
         passport= require('passport'),
         Auth0Strategy= require('passport-auth0'),
-        axios = require('axios')
+        axios = require('axios'),
+        unirest= require('unirest')
 
 
 const app= express()
@@ -19,7 +20,13 @@ const {
         DOMAIN, 
         CLIENT_ID,
         CLIENT_SECRET,
-        CALLBACK_URL
+        CALLBACK_URL, 
+        API_ID,
+        API_KEY,
+        X_KEY, 
+        X_HOST,
+        TWILIO_ACCOUNTSID,
+        TWILIO_AUTHTOKEN
 }=process.env
 
 massive(CONNECTION_STRING).then(db=>app.set('db', db)).catch(err=>(console.log('massive', err)))
@@ -82,11 +89,47 @@ app.get('/logout', (req,res)=>{
         res.redirect(`https://reccosrats9.auth0.com/v2/logout?returnTo=${encodeURIComponent('http://localhost:3000/#/')}&client_id=${CLIENT_ID}`);
 })
 
-//Endpoints to update database
+//API calls
+app.get('/runAPI', (req, res)=>{
+        app.get('db').get_all_routes().then(res=>{
+                res.map(route=>{
+                        let {origin, destination, price, routeid}=route
+                        unirest.get("https://skyscanner-skyscanner-flight-search-v1.p.mashape.com/apiservices/browsedates/v1.0/US/USD/en-US/SLC-sky/CDG-sky/anytime/anytime")
+                        .header("X-Mashape-Key", `${X_KEY}`)
+                        .header("X-Mashape-Host", `${X_HOST}`)
+                        .end(res=> {
+                        let quotes= res.body.Quotes
+                        quotes.map(quote=>{
+                                  if(quote.MinPrice <=price){
+                                          //updateNewMatch in db
+                                        }
+                                })
+                                //text all users with a true NewMatch, but not multiple times
+
+                        });
+                        
+                })
+        })
+})
+
+
+
+// axios.get(`http://developer.goibibo.com/api/search/?app_id=${API_ID}app_key=${API_KEY}&format=json&source=SLC&destination=CDG&dateofdeparture=20180628&seatingclass=E&adults=1&children=0&infants=0&counter=0`).then(res=>{
+        // let {onwardflights}= res.data.data
+        // console.log(onwardflights[0])
+        // res.data.onwardflights.map()
+// })
+// app.get('db').get_all_routes().then(routes=>{
+        
+// })
+
+
+//DB endpoints
 app.put('/contact/:id', controller.addPhoneEmail)
 app.post('/route', controller.addNewRoute)
 app.get('/routes/:id', controller.getUserRoutes)
 app.put('/route/:routeid', controller.changeRoute)
+app.delete('/route/:routeid', controller.deleteRoute)
 
 
 

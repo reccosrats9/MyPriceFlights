@@ -15,6 +15,7 @@ export default class RoutesTable extends Component{
         this.changeDestination=this.changeDestination.bind(this)
         this.changePrice=this.changePrice.bind(this)
         this.saveChange=this.saveChange.bind(this)
+        this.deleteRoute=this.deleteRoute.bind(this)
     }
 
     componentDidMount(){
@@ -45,10 +46,17 @@ export default class RoutesTable extends Component{
         const{routeid, userid} =this.props.route
         const {origin, destination, price} =this.state
         axios.put(`/route/${routeid}`, {origin, destination, price}).then(res=>{
-            console.log(res.data)
+            // console.log(res.data)
             this.setState({change:false})
             this.props.getRoutes(userid)
         })
+    }
+
+    deleteRoute(){
+        console.log(this.props)
+        const {route} = this.props
+        const {routeid, userid} =route
+        axios.delete(`/route/${routeid}`).then(res=>{this.props.getRoutes(userid)})
     }
 
     render(){
@@ -59,18 +67,20 @@ export default class RoutesTable extends Component{
             <div className='tableRow' >
                 <div className='column'>{route.origin}</div>
                 <div className='column'>{route.destination}</div>
-                <div className='column'>{route.price}</div>
+                <div className='column'>${route.price}</div>
                 <div className='columnSmall'>
                     <button className='tableButton' onClick={this.changeChange}>Change</button>
                 </div>
                 <div className='columnSmall'>
-                    <button className='tableButton'>Delete</button>
+                    <button className='tableButton' 
+                    onClick={this.deleteRoute}
+                    >Delete</button>
                 </div>
             </div> : 
                <div className='tableRow' >
-               <div className='column'><input type="text" className='changeInput' placeholder='Airport Code' onChange={this.changeOrigin} /></div>
-               <div className='column'><input type="text" className='changeInput' placeholder='Airport Code' onChange={this.changeDestination}/></div>
-               <div className='column'><input type="text" className='changeInput' placeholder='$$$'onChange={this.changePrice}/></div>
+               <div className='column'><input type="text" className='changeInput' placeholder={route.origin} onChange={this.changeOrigin} /></div>
+               <div className='column'><input type="text" className='changeInput' placeholder={route.destination} onChange={this.changeDestination}/></div>
+               <div className='column'><input type="text" className='changeInput' placeholder={'$' +`${route.price}`} onChange={this.changePrice}/></div>
                <div className='columnSmall'>
                    <button className='tableButton' onClick={this.saveChange}>Save</button>
                </div>
