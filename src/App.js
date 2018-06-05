@@ -3,6 +3,7 @@ import './reset.css'
 import './App.css';
 import Nav from './Components/Nav/Nav'
 import routes from './routes'
+import {withRouter} from 'react-router-dom'
 
 class App extends Component {
  
@@ -18,4 +19,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

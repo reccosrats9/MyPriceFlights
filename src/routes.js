@@ -6,7 +6,6 @@ import Register from './Components/Register/Register'
 import Change from './Components/Change/Change'
 import Delete from './Components/Delete/Delete'
 import Add from './Components/Add/Add'
-import Pro from './Components/Pro/Pro'
 import Found from './Components/Found/Found'
 
 export default (
@@ -17,7 +16,6 @@ export default (
         <Route path= '/change' component= {Change} />
         <Route path= '/delete' component= {Delete} />
         <Route path= '/add' component= {Add} />
-        <Route path= '/pro' component= {Pro} />
         <Route path= '/found' component= {Found} />
     </Switch>
 )

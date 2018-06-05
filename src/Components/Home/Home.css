@@ -48,11 +48,14 @@
     margin-bottom: 10px;
     align-items: center;
     text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .column{
-    width: 25%
+    width: 25%;
 }
+
 .columnSmall{
     width: 12.5%
 }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import './RoutesTable.css';
 
 export default class RoutesTable extends Component{
     constructor(){
@@ -8,7 +9,7 @@ export default class RoutesTable extends Component{
             origin: '',
             destination: '',
             price:'',
-            change: false
+            change: false,
         }
         this.changeChange=this.changeChange.bind(this)
         this.changeOrigin=this.changeOrigin.bind(this)
@@ -64,7 +65,7 @@ export default class RoutesTable extends Component{
         return(
             <div>
             {!this.state.change ? 
-            <div className='tableRow' >
+            <div className={route.newmatch? 'tableRow match' : 'tableRow'}>
                 <div className='column'>{route.origin}</div>
                 <div className='column'>{route.destination}</div>
                 <div className='column'>${route.price}</div>
@@ -80,7 +81,7 @@ export default class RoutesTable extends Component{
                <div className='tableRow' >
                <div className='column'><input type="text" className='changeInput' placeholder={route.origin} onChange={this.changeOrigin} /></div>
                <div className='column'><input type="text" className='changeInput' placeholder={route.destination} onChange={this.changeDestination}/></div>
-               <div className='column'><input type="text" className='changeInput' placeholder={'$' +`${route.price}`} onChange={this.changePrice}/></div>
+               <div className='column'><input type="text" className='changeInput' placeholder={`$ ${route.price}`} onChange={this.changePrice}/></div>
                <div className='columnSmall'>
                    <button className='tableButton' onClick={this.saveChange}>Save</button>
                </div>

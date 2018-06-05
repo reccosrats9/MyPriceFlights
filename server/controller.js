@@ -32,5 +32,16 @@ module.exports={
     deleteRoute:(req, res)=>{
         const {routeid}=req.params
         req.app.get('db').delete_route([routeid]).then(()=>res.sendStatus(200)).catch(err=>console.log('delete route endpoint', err))
-    } 
+    },
+    routeSeen:(req,res)=>{
+        const {routeid}=req.params
+        req.app.get('db').match_seen([routeid]).then(()=>res.sendStatus(200))
+    }, 
+    makePro: (req,res)=>{
+        const {id}=req.params
+        req.app.get('db').make_pro([id]).then(
+            user=>{
+                res.status(200).send(user[0].prostatus)
+            })
+    }
 }
