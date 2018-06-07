@@ -4,7 +4,9 @@ create table routes (
     origin varchar(40),
     destination varchar(40),
     price decimal,
-    newMatch boolean
+    newMatch boolean,
+    textSent boolean, 
+    textDate text
 );
 
 insert into routes (userID, origin, destination, price, newMatch)

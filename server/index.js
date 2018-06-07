@@ -8,7 +8,8 @@ controller = require('./controller'),
         Auth0Strategy = require('passport-auth0'),
         axios = require('axios'),
         unirest = require('unirest'),
-        stripe = require('stripe')(process.env.STRIPE_SECRET)
+        stripe = require('stripe')(process.env.STRIPE_SECRET),
+        cron = require('node-cron')
 
 const app = express()
 app.use(bodyParser.json())
@@ -88,33 +89,47 @@ app.get('/logout', (req, res) => {
 })
 
 //API calls
-app.get('/runAPI', (req, res) => {
+cron.schedule('37 47 * * * *', () => {
+        // console.log('first try')
+        // return console.log('hit it')
         app.get('db').get_users_and_routes().then(routes => {
                 routes.map(route => {
-                        let { origin, destination, price, routeid, phone } = route
+                        let { origin, destination, price, routeid, phone, textsent, textdate} = route
+                        if (textsent){
+                                let textSentDate= new Date(textdate)
+                                let current= new Date()
+                                if((current-textSentDate)/1000/60/60/24 >7){
+                                        console.log('get rid of date')
+                                }
+                                else{console.log('too recent')}
+                        }
                         unirest.get("https://skyscanner-skyscanner-flight-search-v1.p.mashape.com/apiservices/browsedates/v1.0/US/USD/en-US/SLC-sky/CDG-sky/anytime/anytime")
                                 .header("X-Mashape-Key", `${X_KEY}`)
                                 .header("X-Mashape-Host", `${X_HOST}`)
                                 .end(results => {
                                                 let quotes = results.body.Quotes.filter(quote => quote.MinPrice <= price)
                                                 quotes.map(quote => {
-                                                        req.app.get('db').add_match([routeid]).then(route => {
+                                                        app.get('db').add_match([routeid]).then(route => {
                                                                 // console.log(route)
-
-                                                                res.status(200).send()
                                                         }).catch(err => (console.log('deserialize', err)))
                                                 })
                                                 
-                                                if (quotes.length > 0 ){
+                                                if (quotes.length > 0 && !textsent){
                                                         console.log('should send magic man')
                                                         client.messages
                                                                 .create({
                                                                         to: `+1${phone}`,
                                                                         from: '+14805669429',
-                                                                        body: `It's ✨ MAGIC ✨!Your friends at My Price Flights have found a match! Flying from ${origin} to ${destination} is less than ${price}. Use your favorite flight service to book while prices last!`,
-                                                                // mediaUrl: 'http://gph.is/Quih86',
+                                                                        body: `Your friends at My Price Flights have found a match! Flying from ${origin} to ${destination} is less than ${price}. Use your favorite flight service to book while prices last!`,
+                                                                mediaUrl: 'http://gph.is/Quih86',
+                                                                // mediaUrl: './magic'
                                                                 })
-                                                                .then((message) => console.log(message.sid));
+                                                                .then(message => {
+                                                                        console.log(message.sid)
+                                                                        let now= new Date()
+                                                                        console.log(now)
+                                                                        app.get('db').text_sent([routeid, now]).then(()=>{})
+                                                                }).catch(err=>console.log('text sent', err))
                                                 }
 
                                         //text all users with a true NewMatch, but not multiple times

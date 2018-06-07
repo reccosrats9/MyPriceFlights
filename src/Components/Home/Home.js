@@ -125,7 +125,7 @@ class Home extends Component {
                                     token={this.onToken}
                                     stripeKey='pk_test_WAXK0vNnZczGeQSw3ToSW28g'
                                     amount={2500}
-                                closed={this.stripeClosed}
+                                    closed={this.stripeClosed}
                                 />
                             </DialogActions>
                             </Dialog>
