@@ -81,7 +81,7 @@ passport.deserializeUser((id, done) => {
 //Sessions and Auth0 endpoints
 app.get('/login', passport.authenticate('auth0'))
 app.get('/auth/callback', passport.authenticate('auth0', {
-        successRedirect: {SUCCESS_REDIRECT}
+        successRedirect: SUCCESS_REDIRECT
 }))
 app.get('/auth/me', (req, res) => {
         console.log('user', req.user)
@@ -90,7 +90,7 @@ app.get('/auth/me', (req, res) => {
 })
 app.get('/logout', (req, res) => {
         req.logOut()
-        res.redirect(`https://reccosrats9.auth0.com/v2/logout?returnTo=${encodeURIComponent(`${AUTH0_REDIRECT}`)}&client_id=${CLIENT_ID}`);
+        res.redirect(`https://reccosrats9.auth0.com/v2/logout?returnTo=${AUTH0_REDIRECT}&client_id=${CLIENT_ID}`);
 })
 
 //API calls
