@@ -2,8 +2,9 @@ require('dotenv').config()
 const express = require('express'),
         bodyParser = require('body-parser'),
         massive = require('massive'),
-        session = require('express-session')
-controller = require('./controller'),
+        session = require('express-session'),
+        // path= require('path'),
+        controller = require('./controller'),
         passport = require('passport'),
         Auth0Strategy = require('passport-auth0'),
         axios = require('axios'),
@@ -22,6 +23,8 @@ const {
         CLIENT_ID,
         CLIENT_SECRET,
         CALLBACK_URL,
+        SUCCESS_REDIRECT,
+        AUTH0_REDIRECT,
         API_ID,
         API_KEY,
         X_KEY,
@@ -33,6 +36,8 @@ const {
 const client = require('twilio')(TWILIO_ACCOUNTSID, TWILIO_AUTHTOKEN)
 
 massive(CONNECTION_STRING).then(db => app.set('db', db)).catch(err => (console.log('massive', err)))
+
+app.use( express.static( `${__dirname}/../build` ) );
 
 app.use(session({
         secret: SESSION_SECRET,
@@ -76,7 +81,7 @@ passport.deserializeUser((id, done) => {
 //Sessions and Auth0 endpoints
 app.get('/login', passport.authenticate('auth0'))
 app.get('/auth/callback', passport.authenticate('auth0', {
-        successRedirect: 'http://localhost:3000/#/home'
+        successRedirect: {SUCCESS_REDIRECT}
 }))
 app.get('/auth/me', (req, res) => {
         console.log('user', req.user)
@@ -85,7 +90,7 @@ app.get('/auth/me', (req, res) => {
 })
 app.get('/logout', (req, res) => {
         req.logOut()
-        res.redirect(`https://reccosrats9.auth0.com/v2/logout?returnTo=${encodeURIComponent('http://localhost:3000/#/')}&client_id=${CLIENT_ID}`);
+        res.redirect(`https://reccosrats9.auth0.com/v2/logout?returnTo=${encodeURIComponent(`${AUTH0_REDIRECT}`)}&client_id=${CLIENT_ID}`);
 })
 
 //API calls
@@ -202,6 +207,9 @@ app.post('/api/payment', function (req, res, next) {
         });
 });
 
-
+//MUST BE LAST ENDPOINT!!!
+// app.get('*', (req, res)=>{
+//         res.sendFile(path.join(__dirname, '../build/index.html'));
+//     });
 
 app.listen(SERVER_PORT, console.log(`Flying high on port ${SERVER_PORT} 🛩  🏖`))
