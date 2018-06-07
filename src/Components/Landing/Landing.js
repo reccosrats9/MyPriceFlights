@@ -22,7 +22,7 @@ class Landing extends Component{
                           "shape": {
                             "type": "image",
                             "image": {
-                              "src": "http://pluspng.com/img-png/cloud-png-cloud-png-image-1988.png",
+                              "src": "pluspng.com/img-png/cloud-png-cloud-png-image-1988.png",
                               "width": 100,
                               "height": 100
                             }
