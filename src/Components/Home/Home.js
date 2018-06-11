@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom'
 import './Home.css' 
 import RoutesTable from '../RoutesTable/RoutesTable'
 import StripeCheckout from 'react-stripe-checkout';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -14,8 +13,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 
-// import {Redirect} from 'react-router-dom'
-// import Landing from '../Landing/Landing'
 
 function Transition(props) {
     return <Slide direction="up" {...props} />;
@@ -26,7 +23,7 @@ class Home extends Component {
         super()
         this.state={
             routes: [],
-            open: false
+            open: false, 
         }
         this.componentDidMount= this.componentDidMount.bind(this)
         this.getRoutes=this.getRoutes.bind(this)
@@ -118,9 +115,9 @@ class Home extends Component {
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
-                                <Button onClick={this.handleClose} color="primary">
+                                <button onClick={this.handleClose} className='deleteCheck cancel'>
                                 Cancel
-                                </Button>
+                                </button>
                                 <StripeCheckout onClick={this.handleClose}
                                     token={this.onToken}
                                     stripeKey='pk_test_WAXK0vNnZczGeQSw3ToSW28g'

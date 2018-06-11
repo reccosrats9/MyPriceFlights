@@ -16,6 +16,6 @@ export default (
         <Route path= '/change' component= {Change} />
         <Route path= '/delete' component= {Delete} />
         <Route path= '/add' component= {Add} />
-        <Route path= '/found' component= {Found} />
+        <Route path= '/found/:id/:origin/:destination' component= {Found} />
     </Switch>
 )

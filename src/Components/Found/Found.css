@@ -1,0 +1,35 @@
+.matchesBox{
+    color: #0B3C49;
+}
+
+.foundHeader{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1em;
+    width: 100%;
+    color: #00A7E1
+}
+
+.quotesTable{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.quoteDescription{
+    padding-bottom: 20px;
+}
+
+.book{
+    position:  absolute;
+    bottom:20px;
+    margin: auto;
+    text-align: center;
+    margin-top: 200px;
+    color: #ED254E;
+}

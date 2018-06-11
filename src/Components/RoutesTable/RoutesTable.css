@@ -1,7 +1,16 @@
 .match{
-    background: rgb(237,37,78, 0.4);
+    background: rgb(54,209,82, 0.2);
     padding: 10px;
-    border-radius: 15px;
-    box-shadow: 1px 1px 1px #0B3C49;
+    border-radius: 5px;
+    /* box-shadow: 1px 1px 1px #0B3C49; */
 }
 
+.deleteCheck{
+    padding: 7.5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.cancel{
+    background: #00A7E1;
+}

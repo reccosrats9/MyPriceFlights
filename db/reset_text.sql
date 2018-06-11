@@ -1,4 +1,4 @@
 update routes 
-set (textsent, textdate)=(null, null)
+set textdate=null
 where id = $1
 returning *;

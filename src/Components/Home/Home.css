@@ -13,12 +13,13 @@
     padding: 15px;
     background: #FDFFFC;
     box-shadow: 3px 3px 3px #0B3C49;
+    position: relative;
 }
 
 .routesTable{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 90%;
 }
 
 .HeaderBox{
@@ -26,7 +27,7 @@
     justify-content: space-around; */
     width: 80%;
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
@@ -55,6 +56,7 @@
     box-shadow: 1px 1px 1px #0B3C49; */
 }
 
+
 .column{
     width: 25%;
 }
@@ -67,6 +69,14 @@
     padding: 7px;
     font-size: 0.75em;
     background: #00A7E1;
+}
+
+.link{
+    text-decoration: none;
+    color: #0B3C49;
+    display: flex;
+    justify-content: space-around;
+    width: 75%;
 }
 
 .tableButton:hover{
@@ -91,3 +101,4 @@
 .changeInput{
     width: 60%;
 }
+

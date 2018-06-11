@@ -30,6 +30,7 @@ module.exports={
         .catch(err=>console.log('change route endpoint', err))
     }, 
     deleteRoute:(req, res)=>{
+        console.log('💋')
         const {routeid}=req.params
         req.app.get('db').delete_route([routeid]).then(()=>res.sendStatus(200)).catch(err=>console.log('delete route endpoint', err))
     },
@@ -43,5 +44,13 @@ module.exports={
             user=>{
                 res.status(200).send(user[0].prostatus)
             })
+    },
+    routeMatch: (req, res)=>{
+        const{routeid}=req.params
+        req.app.get('db').matching_quotes([routeid]).then(
+            quotematches=>{
+                res.status(200).send(quotematches)
+            }
+        )
     }
 }

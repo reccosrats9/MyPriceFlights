@@ -6,7 +6,8 @@ create table routes (
     price decimal,
     newMatch boolean,
     textSent boolean, 
-    textDate text
+    textDate text,
+    quotematches jsonb
 );
 
 insert into routes (userID, origin, destination, price, newMatch)
