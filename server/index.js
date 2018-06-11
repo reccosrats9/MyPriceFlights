@@ -90,7 +90,7 @@ app.get('/auth/me', (req, res) => {
 })
 app.get('/logout', (req, res) => {
         req.logOut()
-        res.redirect(`https://reccosrats9.auth0.com/v2/logout?returnTo=${AUTH0_REDIRECT}`);
+        res.redirect(`https://reccosrats9.auth0.com/v2/logout?returnTo=${encodeURI(AUTH0_REDIRECT)}`);
 })
 
 //API calls
